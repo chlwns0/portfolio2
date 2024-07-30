@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B_READY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/jquery.bxslider.css">
+  <link rel="stylesheet" href="css/fullpage.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/main_mb2.css">
+  <script src="lib/jquery-1.11.1.min.js"></script>
+  <script src="lib/jquery.easing.1.3.js"></script>
+  <script src="lib/fullpage.min.js"></script>
+  <script src="lib/jquery.bxslider.js"></script>
+  <script src="lib/swiper.min.js"></script>
+  <script src="js/main_menu.js"></script>
+  <script>
+    $(function () {
+      $("#fullpage").fullpage({
+        anchors: ["page1", "page2", "page3", "page4", "page5"],
+        menu: "#btn",
+        css3: true,
+        easingcss3: "ease-in",
+        loopTop: true,
+        loopBottom: true,
+        scrollbar: true,
+        responsiveWidth: 1200,
+      });
+      //btn li click event
+      $("#btn li").on("mouseover", function (e) {
+        e.preventDefault();
+        $(this)
+          .children()
+          .stop()
+        // .animate({ left: "-60px", opacity: "1" }, 1000, "easeOutExpo") 0626 수정(btn click event);
+        $(this).children().addClass("on");
+      });
+      $("#btn li").on("mouseout", function (e) {
+        e.preventDefault();
+        $(this)
+          .children()
+          .stop()
+          .animate({ left: "100%", opacity: "0" }, 1000, "easeOutExpo");
+        $(this).children().removeClass("on");
+      });
+      $(document).ready(function () {
+        $('.bxslider').bxSlider({
+          mode: 'horizontal',
+          moveSlides: 1,
+          slideMargin: 10,
+          infiniteLoop: true,
+          slideWidth: 250,
+          minSlides: 2,
+          maxSlides: 2,
+          speed: 1000,
+          auto: true,
+        });
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+          let slides = document.getElementsByClassName("mySlides");
+          for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slideIndex++;
+          if (slideIndex > slides.length) {
+            slideIndex = 1;
+          }
+          slides[slideIndex - 1].style.display = "block";
+          setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+
+
+      });
+      $(document).ready(function () {
+        let bannerLeft = 0;
+        let first = 1;
+        let last;
+        let imgCnt = 0;
+        let $img = $('.img_list li a img');
+        let $first;
+        let $last;
+
+        $img.each(function () {
+          $(this).css('left', bannerLeft);
+          bannerLeft += $(this).width() + 5;
+          $(this).attr('id', 'banner' + (++imgCnt));
+        });
+        if (imgCnt > 8) {
+          last = imgCnt;
+          setInterval(function () {
+            $img.each(function () {
+              $(this).css('left', $(this).position().left - 1);
+            })
+            $first = $('#banner' + first);
+            $last = $('#banner' + last);
+            if ($first.position().left < -200) {
+              $first.css('left', $last.position().left + $last.width() + 5);
+              first++;
+              last++;
+              if (last > imgCnt) last = 1;
+              if (first > imgCnt) first = 1;
+            }
+          }, 50)
+        }
+      })
+      var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: true, // 마지막 이미지에서 처음 이미지로 순환되게 설정
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+          delay: 3000, // 3초마다 이미지가 하나씩 돌아가게 설정
+          disableOnInteraction: false, // 사용자가 슬라이드를 조작한 후에도 자동 슬라이드가 계속되도록 설정
+        },
+        // 이미지 크기를 동일하게 맞추기 위한 CSS 설정
+        on: {
+          init: function () {
+            // 이미지 크기 조정을 위한 함수 호출
+            adjustImageSizes();
+          },
+          resize: function () {
+            // 창 크기가 조정될 때 이미지 크기 조정을 위한 함수 호출
+            adjustImageSizes();
+          },
+        }
+      });
+
+      // 이미지 크기를 동일하게 맞추기 위한 함수 정의
+      function adjustImageSizes() {
+        var slides = document.querySelectorAll('.swiper-container .swiper-slide img');
+        slides.forEach(function (img) {
+          img.style.width = '100%';
+          img.style.height = 'auto'; // 필요한 경우 'auto' 대신 다른 값을 사용할 수 있습니다.
+        });
+      }
+
+    });
+
+
+
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      var video = document.getElementById('myVideo');
+      video.play();
+    });
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="center">
+      <h1>
+        <a href="#"><img src="img/logo.png" alt="" /></a>
+      </h1>
+      <nav class="nav1">
+        <ul class="main_menu">
+          <li>
+            <a href="#">메이크업</a>
+            <ol>
+              <li><a href="#">submenu1</a></li>
+              <li><a href="#">submenu2</a></li>
+              <li><a href="#">submenu3</a></li>
+              <li><a href="#">submenu4</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="#">헤어</a>
+            <ol>
+              <li><a href="#">submenu1</a></li>
+              <li><a href="#">submenu2</a></li>
+              <li><a href="#">submenu3</a></li>
+              <li><a href="#">submenu4</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="#">향수</a>
+            <ol>
+              <li><a href="#">submenu1</a></li>
+              <li><a href="#">submenu2</a></li>
+              <li><a href="#">submenu3</a></li>
+              <li><a href="#">submenu4</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="#">스킨케어</a>
+            <ol>
+              <li><a href="#">submenu1</a></li>
+              <li><a href="#">submenu2</a></li>
+              <li><a href="#">submenu3</a></li>
+              <li><a href="#">submenu4</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="#section3">Event</a>
+          </li>
+        </ul>
+      </nav>
+      <nav class="nav2">
+        <ol>
+          <li><a href="#">LOGIN</a></li>
+          <li><a href="#">JOIN</a></li>
+          <li><a href="#">CART</a></li>
+        </ol>
+      </nav>
+    </div>
+    <!-- 햄버거버튼 -->
+
+    <label id="menu">
+      <input type="checkbox" />
+      <div></div>
+      <div></div>
+      <div></div>
+    </label>
+
+    <nav class="nav1" id="mobile_menu">
+      <ul class="main_menu_mb" id="toggle_menu">
+        <li>
+          <a href="#">메이크업</a>
+          <ol>
+            <li><a href="#">submenu1</a></li>
+            <li><a href="#">submenu2</a></li>
+            <li><a href="#">submenu3</a></li>
+            <li><a href="#">submenu4</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#">헤어</a>
+          <ol>
+            <li><a href="#">submenu1</a></li>
+            <li><a href="#">submenu2</a></li>
+            <li><a href="#">submenu3</a></li>
+            <li><a href="#">submenu4</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#">향수</a>
+          <ol>
+            <li><a href="#">submenu1</a></li>
+            <li><a href="#">submenu2</a></li>
+            <li><a href="#">submenu3</a></li>
+            <li><a href="#">submenu4</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#">스킨케어</a>
+          <ol>
+            <li><a href="#">submenu1</a></li>
+            <li><a href="#">submenu2</a></li>
+            <li><a href="#">submenu3</a></li>
+            <li><a href="#">submenu4</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#section3">Event</a>
+        </li>
+
+        <ol class="nav2">
+          <li><a href="#">LOGIN</a></li>
+          <li><a href="#">JOIN</a></li>
+          <li><a href="#">CART</a></li>
+        </ol>
+    </nav>
+    </ul>
+    </nav>
+    </div>
+  </header>
+  <div id="fullpage">
+    <section class="section" id="section1">
+      <video id="video_pc" autoplay muted loop playsinline>
+        <source src="img/videoplayback.mp4" />
+      </video>
+      <div id="video_mb" style="position: relative; height:0; padding-bottom: 56.25%; margin: 50px 0px;">
+        <video id="myVideo" width="560" height="315" src="img/videoplayback.mp4" frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+          style="position: absolute; width:100%; height:100%;" autoplay loop muted></video>
+      </div>
+
+
+    </section>
+    <section class="section" id="section2">
+      <div class="cl1">
+        <h2>BEST ITEM</h2>
+        <ul class="best bxslider">
+          <li data-name="생기 립밤" data-price="10,300원" data-original-price="12,900원">
+            <a href="#"><img src="img/best_item1.png" alt=""></a>
+          </li>
+          <li data-name="오일 폼 클렌저" data-price="14,500원" data-original-price="20,000원">
+            <a href="#"><img src="img/best_item2.png" alt=""></a>
+          </li>
+          <li data-name="에어리 헤어 페이스트" data-price="10,900원" data-original-price="16,500원">
+            <a href="#"><img src="img/best_item3.png" alt=""></a>
+          </li>
+          <li data-name="시카페인 트러블 리셋 세럼" data-price="29,500원" data-original-price="38,000원">
+            <a href="#"><img src="img/best_item4.png" alt=""></a>
+          </li>
+          <li data-name="시카페인 트러블리셋 클렌징폼" data-price="13,500원" data-original-price="19,500원">
+            <a href="#"><img src="img/best_item5.png" alt=""></a>
+          </li>
+          <li data-name="시카페인 트러블 리셋 크림" data-price="27,900원" data-original-price="34,000원">
+            <a href="#"><img src="img/best_item6.png" alt=""></a>
+          </li>
+          <li data-name="블루 쿠션" data-price="18,910원" data-original-price="29,000원">
+            <a href="#"><img src="img/best_item7.png" alt=""></a>
+          </li>
+        </ul>
+        <h2>NEW ITEM</h2>
+        <ul class="new bxslider">
+          <li data-name="트루 톤 로션" data-price="29,600원" data-original-price="37,000원">
+            <a href="#"><img src="img/new_item1.png" alt=""></a>
+          </li>
+          <li data-name="트루 톤 로션(리필)" data-price="18,200원" data-original-price="23,000원">
+            <a href="#"><img src="img/new_item2.png" alt=""></a>
+          </li>
+          <li data-name="블루 세범 파우더" data-price="10.500원" data-original-price="15,000원">
+            <a href="#"><img src="img/new_item3.png" alt=""></a>
+          </li>
+          <li data-name="블루 수분 선크림" data-price="16,800원" data-original-price="25,000원">
+            <a href="#"><img src="img/new_item4.png" alt=""></a>
+          </li>
+          <li data-name="시카페인 트러블 리셋 토너" data-price="18,900원" data-original-price="25,000원">
+            <a href="#"><img src="img/new_item5.png" alt=""></a>
+          </li>
+        </ul>
+      </div>
+      <div class="cl2">
+        <h2>조회수 상승 인기 아이템</h2>
+        <ul>
+          <li>
+            <i class="new_icon">New !</i>
+            <a href="">1. 트루 톤 로션</a>
+          </li>
+          <li>
+            <i class="best_icon">Best !</i>
+            <a href="">2. 생기 립밤</a>
+          </li>
+          <li><a href="">3. 블루 수분 썬크림</a></li>
+          <li><a href="">4. 오일 폼 클렌저</a></li>
+          <li><a href="">5. 시카페인 트러블 리셋 세럼</a></li>
+        </ul>
+      </div>
+    </section>
+    </section>
+    <section class="section" id="section3">
+      <div class="promotion">
+        <h2>PROMOTION</h2>
+        <ul class="cl3">
+          <div class="slideshow-container">
+            <div class="mySlides fade">
+              <li><a href="#"><img src="img/promotion_bg.png" alt=""></a></li>
+            </div>
+            <div class="mySlides fade">
+              <li><a href="#"><img src="img/promotion_bg2.png" alt=""></a></li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div class="special">
+        <h2>SPECIAL</h2>
+        <ul class="cl4">
+          <li data-name="Lucky Box No.0" data-price="2,900원" data-original-price="20,000원"><a href="#"><img
+                src="img/special1.png" alt=""></a></li>
+          <li data-name="Lucky Box No.1" data-original-price="25,000원"><a href="#"><img src="img/special2.png"
+                alt=""></a></li>
+          <li data-name="알잘딱깔센 SET" data-original-price="39,900원"><a href="#"><img src="img/special3.png" alt=""></a>
+          </li>
+          <li data-name="심플하게 시작해 SET" data-original-price="32,900원"><a href="#"><img src="img/special4.png" alt=""></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="section4">
+      <div class="cl5">
+        <h1># B.READY</h1>
+        <p>Feel The Best Moments !</p>
+        <div class="slider-wrapper">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="img/insta1.png" alt=""></div>
+              <div class="swiper-slide"><img src="img/insta2.png" alt=""></div>
+              <div class="swiper-slide"><img src="img/insta3.png" alt=""></div>
+              <div class="swiper-slide"><img src="img/insta4.png" alt=""></div>
+              <div class="swiper-slide"><img src="img/insta5.png" alt=""></div>
+              <div class="swiper-slide"><img src="img/insta6.png" alt=""></div>
+              <div class="swiper-slide"><img class="img7" src="img/insta8.png" alt=""></div>
+            </div>
+          </div>
+          <!-- Add Navigation -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <h1 class="offical">@b.ready__official</h1>
+      </div>
+      <div class="sns-marquee">
+        <div class="marquee_inner">
+          <div class="marquee_box">
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+            <div class="marquee_txt">Total Styling Brand B.READY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section fp-auto-height" id="section5">
+      <div class="footer">
+        <div class="left">
+          <img src="img/fotter_logo.png" alt="">
+          <div class="icon">
+            <a href="https://www.instagram.com/b.ready__official/" target="_blank"><img src="img/insta_icon.png" alt="">
+            </a>
+            <a href="https://www.youtube.com/channel/UC0LBE-AMc1rRfdEEdQ3KP6g" target="_blank"><img
+                src="img/youtube_icon.png" alt=""></a>
+            <a href="https://www.facebook.com/official.beready" target="_blank"><img src="img/facebook_icon.png"
+                alt=""></a>
+          </div>
+          <ul class="footer-menu">
+            <li>
+              <a href="https://www.brdy-official.com/brand">BRAND</a>
+            </li>
+            <li>
+              <a href="https://www.brdy-official.com/inquiry">CUSTOMER CENTER</a>
+            </li>
+            <li>
+              <a href="https://www.brdy-official.com/customer-center#faq">Q&amp;A</a>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+
+          <div class="footer-link">
+            <a href="https://www.amoremall.com/kr/ko/beautypoint/app/footer/agreement.do" target="_blank"
+              rel="noopener noreferrer" title="새창 열기">이용약관</a>&nbsp;&nbsp;ㅣ&nbsp;&nbsp;
+            <a href="https://www.amoremall.com/kr/ko/beautypoint/app/footer/privacy.do" target="_blank"
+              rel="noopener noreferrer" title="새창 열기" style="font-weight:bold">개인정보처리방침</a>
+          </div>
+          <div class="footer-text">
+            <p class="text">
+              <span>㈜아모레퍼시픽 서울특별시 용산구 한강대로 100(한강로2가)</span>
+            </p>
+            <p class="text">
+              <span>080-805-1777(쇼핑문의)/080-023-5454(제품문의)</span>
+              <span>대표이사 : 김승환 | 사업자등록번호 : 106-86-43373</span>
+
+            </p>
+            <p class="text">
+              <span>통신판매업신고번호 : 2017-서울용산-1308</span>
+              <span>호스팅제공자 : (주)아모레퍼시픽</span>
+            </p>
+
+          </div>
+          <div class="footer-text">
+            <p class="text">
+              <span>
+                <bold>구매안전서비스 제공 안내&nbsp; /&nbsp;</bold>
+              </span> <span style="margin-left:0px;font-weight:bold; cursor:pointer"
+                onclick="javascript:window.open('https://mark.inicis.com/mark/escrow_popup_v3.php?mid=SEWberea01','mark','scrollbars=no,resizable=no,width=565,height=683');">
+                가입 사실 확인</span><br>
+              <span>저희 쇼핑몰은 고객님의 안전거래를 위해 모든 주문에 대해 <br>KG이니시스의 에스크로 구매안전서비스를 자동 적용하고 있습니다.</span>
+            </p>
+          </div>
+          copyright &copy; 2024 ALL RIGHTS RESERVED
+          <img src="https://image.inicis.com/mkt/certmark/escrow/escrow_60x60_gray.png" border="0"
+            alt="클릭하시면 이니시스 결제시스템의 유효성을 확인하실 수 있습니다.">
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="btn">
+    <ul>
+      <li data-menuAnchor="page1" class="scroll">
+        <a href="#section1">page1</a>
+      </li>
+      <li data-menuAnchor="page2" class="scroll">
+        <a href="#section2">page2</a>
+      </li>
+      <li data-menuAnchor="page3" class="scroll">
+        <a href="#section3">page3</a>
+      </li>
+      <li data-menuAnchor="page4" class="scroll">
+        <a href="#section4">page4</a>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
