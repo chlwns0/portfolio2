@@ -790,7 +790,7 @@
   #section5 {
     display: block;
     width: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     background-color: #0033c3;
     color: #fff;
     position: relative;

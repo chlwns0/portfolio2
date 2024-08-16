@@ -451,7 +451,7 @@
     text-align: center;
   }
   #section3 .promotion ul {
-    width: 90%;
+    width: 100%;
     height: auto;
     margin: 0 auto;
 
@@ -498,8 +498,8 @@
     /* border: 1px solid red; */
   }
   #section3 .promotion ul li a img {
-    width: 622px;
-    height: 550px;
+    width: 500px;
+    height: 530px;
     margin: 5px auto 0;
   }
 
@@ -514,8 +514,13 @@
     display: inline-block;
   }
   #section3 .special ul {
-    width: 47%;
-    position: absolute;
+    width: 90%;
+    height: 530px;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 
     display: flex;
     flex-flow: row wrap;
