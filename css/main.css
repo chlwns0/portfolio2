@@ -663,8 +663,9 @@
     z-index: 999;
   }
   .swiper-pagination {
-    margin-left: 230px;
-    /* border: 1px solid red; */
+    /* margin-left: 230px; */
+    border: 1px solid red;
+    display: none;
   }
   .swiper-slide img {
     width: 100%;
